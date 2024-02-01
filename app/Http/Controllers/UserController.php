@@ -45,6 +45,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
+            'unique_name' => 'required',
         ]);
  
         $user = User::create($request->all());
@@ -59,7 +60,6 @@ class UserController extends Controller
      */
     public function show(User $user,$id)
     {
-        echo $id;exit;
         return $users = User::where("id",$id)->first();
        
     }
