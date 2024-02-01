@@ -10,8 +10,18 @@ class UserController extends Controller
     
     public function index(Request $request)
     {
-        Log::info(json_encode($request->all()));
-        return $users = User::latest()->first();
+        Log::info("Requested Header =".json_encode($request->header()));
+        $data = [
+            'Request Method' => $request->method(),
+            'Request Path' => $request->path(),
+            'Request Params' => $request->all(),
+            'Request IP' => $request->ip(),
+            'Origin' => $request->header('host'),
+        ];
+
+        Log::info(json_encode($data));
+
+        return $users = User::latest()->orderBy("id","DESC")->first();
     }
  
     /**
